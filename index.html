@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dra. Mayra González | Nutrición y Transformación Integral para Mujeres</title>
+  <meta name="description" content="Médica especialista en nutrición. Ayudo a mujeres a transformar su salud, su cuerpo y su relación consigo mismas desde un enfoque integral: nutrición, fuerza, hábitos y medicina del estilo de vida." />
+  <meta name="theme-color" content="#F4EFE3" />
+  <link rel="icon" href="img/favicon.ico" sizes="any" />
+  <link rel="icon" href="img/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="img/apple-icon.png" />
+
+  <!-- Marca la clase js cuanto antes: sin JS, el contenido se ve igual -->
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js','js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --cream:#F4EFE3;
+      --paper:#EAE2D0;
+      --olive:#46583A;
+      --sage:#9CB389;
+      --ink:#2B2A22;
+      --gold:#C9A96A;          /* dorado claro: solo sobre fondo oscuro */
+      --gold-deep:#A9843F;     /* dorado con contraste: sobre crema */
+      --hero-shade:rgba(31,29,22,.62);
+      --hero-shade-strong:rgba(31,29,22,.82);
+      --serif:"Playfair Display", Georgia, "Times New Roman", serif;
+      --sans:"Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    *,*::before,*::after{box-sizing:border-box;}
+    html{-webkit-text-size-adjust:100%;}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background:var(--cream);
+      font-weight:400;
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    img{max-width:100%;display:block;}
+    a{color:inherit;}
+
+    /* Accesible: saltar al contenido */
+    .skip{
+      position:absolute;left:-999px;top:0;z-index:200;
+      background:var(--ink);color:var(--cream);
+      padding:.75rem 1.25rem;border-radius:0 0 4px 0;text-decoration:none;
+    }
+    .skip:focus{left:0;}
+
+    :focus-visible{
+      outline:2px solid var(--gold);
+      outline-offset:3px;
+      border-radius:2px;
+    }
+
+    .wrap{width:min(1200px,100% - 3rem);margin-inline:auto;}
+
+    /* ---------- Header ---------- */
+    .site-header{
+      position:absolute;inset:0 0 auto 0;z-index:50;
+      padding-top:env(safe-area-inset-top);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;gap:1.25rem;
+      padding-block:1.25rem;flex-wrap:nowrap;
+    }
+    .brand{display:inline-flex;align-items:center;}
+    .brand img{height:46px;width:auto;}
+    .brand:focus-visible{outline-offset:6px;}
+
+    .nav-links{
+      display:flex;align-items:center;gap:1.4rem;list-style:none;margin:0;padding:0;
+      flex-wrap:nowrap;
+    }
+    .nav-links a{
+      text-decoration:none;color:rgba(43,42,34,.82);white-space:nowrap;
+      font-size:.82rem;font-weight:500;letter-spacing:.02em;
+      transition:color .25s ease;
+    }
+    .nav-links a:hover{color:var(--gold-deep);}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:.55em;
+      font-family:var(--sans);font-weight:600;
+      font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+      padding:.95em 1.9em;border-radius:2px;text-decoration:none;cursor:pointer;
+      transition:background-color .28s ease,color .28s ease,border-color .28s ease,transform .28s ease;
+      touch-action:manipulation;
+    }
+    .btn-primary{
+      background:var(--gold);color:var(--ink);border:1px solid var(--gold);
+    }
+    .btn-primary:hover{background:#d9bd83;border-color:#d9bd83;}
+    .btn-ghost{
+      background:transparent;color:var(--ink);border:1px solid rgba(43,42,34,.4);
+    }
+    .btn-ghost:hover{border-color:var(--olive);color:var(--olive);}
+
+    .nav-cta{white-space:nowrap;}
+
+    /* Botón hamburguesa (solo móvil) */
+    .nav-toggle{
+      display:none;background:none;border:0;cursor:pointer;padding:.4rem;
+      color:var(--ink);
+    }
+    .nav-toggle svg{display:block;width:26px;height:26px;}
+
+    /* ---------- Hero ---------- */
+    .hero{
+      position:relative;
+      min-height:100svh;
+      display:flex;align-items:center;
+      color:var(--ink);
+      overflow:hidden;
+      padding-block:8rem 4rem;
+    }
+    .hero::before{
+      content:"";position:absolute;inset:0;
+      background:
+        linear-gradient(90deg,rgba(244,239,227,.94) 0%,rgba(244,239,227,.82) 40%,rgba(244,239,227,.45) 72%,rgba(244,239,227,.28) 100%),
+        url("img/hero-bg.jpg") center/cover no-repeat;
+      z-index:0;
+    }
+    .hero-inner{position:relative;z-index:1;max-width:44rem;}
+
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:.9rem;
+      font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;
+      color:var(--gold-deep);font-weight:600;margin:0 0 1.6rem;
+    }
+    .eyebrow::before{
+      content:"";width:2.4rem;height:1px;background:var(--gold-deep);display:inline-block;
+    }
+
+    .hero h1{
+      font-family:var(--serif);
+      font-weight:500;
+      font-size:clamp(2.3rem,5.4vw,4rem);
+      line-height:1.08;
+      letter-spacing:-.01em;
+      margin:0 0 1.5rem;
+      text-wrap:balance;
+    }
+    .hero h1 em{font-style:italic;color:var(--olive);}
+
+    .hero-lead{
+      font-size:clamp(1rem,1.4vw,1.15rem);
+      line-height:1.7;
+      color:rgba(43,42,34,.82);
+      max-width:36rem;
+      font-weight:400;
+      margin:0 0 2.4rem;
+    }
+
+    .hero-actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;}
+    .btn-lg{font-size:.76rem;padding:1.1em 2.3em;}
+
+    /* Prueba social / credibilidad */
+    .trust{
+      display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem 2.2rem;
+      margin-top:3.2rem;padding-top:1.8rem;
+      border-top:1px solid rgba(43,42,34,.16);
+    }
+    .trust-stat{display:flex;align-items:baseline;gap:.55rem;}
+    .trust-stat .num{
+      font-family:var(--serif);font-size:2.1rem;line-height:1;color:var(--olive);
+      font-variant-numeric:tabular-nums;
+    }
+    .trust-stat .lbl{
+      font-size:.78rem;line-height:1.25;color:rgba(43,42,34,.75);max-width:9rem;
+    }
+    .trust-cred{
+      display:flex;align-items:center;gap:.6rem;
+      font-size:.82rem;color:rgba(43,42,34,.8);letter-spacing:.01em;
+    }
+    .trust-cred svg{width:16px;height:16px;color:var(--gold-deep);flex:none;}
+    .trust-divider{width:1px;height:2.4rem;background:rgba(43,42,34,.16);}
+
+    /* Indicador de scroll */
+    .scroll-cue{
+      position:absolute;left:50%;bottom:1.6rem;transform:translateX(-50%);
+      z-index:1;display:flex;flex-direction:column;align-items:center;gap:.5rem;
+      color:rgba(43,42,34,.5);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+    }
+    .scroll-cue span{width:1px;height:2.4rem;background:linear-gradient(rgba(43,42,34,.45),transparent);}
+
+    /* ---------- Reveal (mejora progresiva; sin JS todo se ve) ---------- */
+    .js .reveal{opacity:0;transform:translateY(22px);}
+    .reveal.in{opacity:1;transform:none;transition:opacity .9s ease,transform .9s ease;}
+    .reveal.d1{transition-delay:.08s;}
+    .reveal.d2{transition-delay:.16s;}
+    .reveal.d3{transition-delay:.24s;}
+    .reveal.d4{transition-delay:.32s;}
+
+    /* ---------- Móvil ---------- */
+    @media (max-width:920px){
+      .nav-toggle{display:inline-flex;}
+      .nav-links,.nav-cta{display:none;}
+      .nav-links.open{
+        display:flex;flex-direction:column;align-items:flex-start;gap:1.25rem;
+        position:absolute;top:100%;left:0;right:0;
+        background:var(--ink);padding:1.5rem;
+      }
+      .nav-links.open a{color:var(--cream);font-size:1rem;}
+      .hero{padding-block:7rem 5rem;}
+      .trust{gap:1.2rem 1.5rem;}
+      .trust-divider{display:none;}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none !important;}
+      .reveal,.reveal.in{opacity:1 !important;transform:none !important;transition:none !important;}
+      html{scroll-behavior:auto;}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#hero">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="/" aria-label="Dra. Mayra González — inicio">
+        <img src="img/logo.png" alt="Dra. Mayra González" width="800" height="366" />
+      </a>
+
+      <nav aria-label="Navegación principal">
+        <ul class="nav-links" id="menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="https://dramayragonzalez.vercel.app/cuerpo-presente">Cuerpo Presente</a></li>
+          <li><a href="https://dramayragonzalez.vercel.app/mentorias-1-1">Mentorías 1:1</a></li>
+          <li><a href="https://dramayragonzalez.vercel.app/cursos-y-talleres">Cursos &amp; Talleres</a></li>
+          <li><a href="https://dramayragonzalez.vercel.app/quien-soy">¿Quién soy?</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn-primary nav-cta" href="https://dramayragonzalez.vercel.app/cuerpo-presente">Conocé Cuerpo Presente</a>
+
+      <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="hero">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
+        <p class="eyebrow reveal">Un espacio para priorizar tu salud</p>
+
+        <h1 id="hero-title" class="reveal d1">
+          Confianza, seguridad y conexión para mujeres decididas a <em>cambiar su realidad</em>.
+        </h1>
+
+        <p class="hero-lead reveal d2">
+          Ayudo a mujeres a transformar su salud, su cuerpo y su relación consigo mismas
+          a través de un enfoque integral basado en nutrición, fuerza, hábitos y medicina
+          del estilo de vida.
+        </p>
+
+        <div class="hero-actions reveal d3">
+          <a class="btn btn-primary btn-lg" href="https://dramayragonzalez.vercel.app/cuerpo-presente">Conocé Cuerpo Presente</a>
+          <a class="btn btn-ghost btn-lg" href="https://dramayragonzalez.vercel.app/quien-soy">Conocé mi historia</a>
+        </div>
+
+        <div class="trust reveal d4">
+          <div class="trust-stat">
+            <span class="num">+90</span>
+            <span class="lbl">mujeres acompañadas</span>
+          </div>
+          <div class="trust-divider" aria-hidden="true"></div>
+          <p class="trust-cred">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M12 3l2.2 4.5 5 .7-3.6 3.5.85 5-4.45-2.35L7.55 16.7l.85-5L4.8 8.2l5-.7L12 3z"/>
+            </svg>
+            Médica especialista en Nutrición
+          </p>
+        </div>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span></span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Menú móvil
+    (function(){
+      var btn = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('menu');
+      if(btn && menu){
+        btn.addEventListener('click', function(){
+          var open = menu.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+        });
+      }
+    })();
+
+    // Reveal como mejora progresiva (respeta reduced-motion)
+    (function(){
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.reveal');
+      if(reduce || !('IntersectionObserver' in window)){
+        els.forEach(function(el){ el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, {threshold:.15});
+      els.forEach(function(el){ io.observe(el); });
+    })();
+  </script>
+</body>
+</html>
