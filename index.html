@@ -86,6 +86,44 @@
     }
     .nav-links a:hover{color:var(--gold-deep);}
 
+    /* Desplegable "Propuestas" */
+    .has-menu{position:relative;}
+    .nav-disclosure{
+      display:inline-flex;align-items:center;gap:.35rem;
+      background:none;border:0;cursor:pointer;padding:0;font-family:inherit;
+      color:rgba(43,42,34,.82);font-size:.82rem;font-weight:500;letter-spacing:.02em;
+      transition:color .25s ease;
+    }
+    .nav-disclosure:hover{color:var(--gold-deep);}
+    .nav-disclosure svg{width:12px;height:12px;transition:transform .25s ease;}
+    .has-menu:hover .nav-disclosure svg,
+    .nav-disclosure[aria-expanded="true"] svg{transform:rotate(180deg);}
+
+    .submenu{
+      position:absolute;top:100%;left:50%;
+      transform:translateX(-50%) translateY(8px);
+      min-width:196px;list-style:none;margin:0;padding:.4rem;
+      background:#FBF7EE;border:1px solid rgba(43,42,34,.1);border-radius:10px;
+      box-shadow:0 20px 40px -22px rgba(43,42,34,.45);
+      opacity:0;visibility:hidden;pointer-events:none;
+      transition:opacity .2s ease,transform .2s ease;
+      z-index:60;
+    }
+    .has-menu:hover .submenu,
+    .has-menu:focus-within .submenu,
+    .submenu.open{
+      opacity:1;visibility:visible;pointer-events:auto;
+      transform:translateX(-50%) translateY(4px);
+    }
+    /* puente invisible para no perder el hover en el hueco */
+    .has-menu::after{content:"";position:absolute;top:100%;left:0;right:0;height:12px;}
+    .submenu a{
+      display:block;padding:.55rem .7rem;border-radius:6px;text-decoration:none;
+      color:rgba(43,42,34,.85);font-size:.82rem;white-space:nowrap;
+      transition:background-color .2s ease,color .2s ease;
+    }
+    .submenu a:hover{background:var(--paper);color:var(--olive);}
+
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:.55em;
       font-family:var(--sans);font-weight:600;
@@ -127,7 +165,29 @@
         radial-gradient(120% 90% at 15% 20%, #FBF7EE 0%, var(--cream) 55%, var(--paper) 100%);
       z-index:0;
     }
-    .hero-inner{position:relative;z-index:1;max-width:44rem;}
+    .hero-inner{
+      position:relative;z-index:1;
+      display:grid;grid-template-columns:1.05fr .82fr;
+      gap:clamp(2rem,5vw,5rem);align-items:center;
+    }
+    .hero-copy{max-width:40rem;}
+
+    .hero-portrait{
+      position:relative;margin:0;justify-self:end;align-self:center;
+      width:100%;max-width:400px;aspect-ratio:4/5;
+    }
+    .hero-portrait img{
+      position:relative;z-index:1;width:100%;height:100%;
+      object-fit:cover;object-position:center 20%;
+      border-radius:10px;
+      box-shadow:0 34px 60px -34px rgba(43,42,34,.5);
+    }
+    .hero-portrait::before{
+      content:"";position:absolute;inset:0;z-index:0;
+      transform:translate(16px,16px);
+      border:1px solid var(--gold-deep);opacity:.5;
+      border-radius:10px;
+    }
 
     .eyebrow{
       display:inline-flex;align-items:center;gap:.9rem;
@@ -164,10 +224,10 @@
     /* Prueba social / credibilidad */
     .trust{
       display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem 2.2rem;
-      margin-top:3.2rem;padding-top:1.8rem;
+      margin-top:3rem;padding-top:1.8rem;
       border-top:1px solid rgba(43,42,34,.16);
     }
-    .trust-stat{display:flex;align-items:baseline;gap:.55rem;}
+    .trust-stat{display:flex;align-items:baseline;gap:.55rem;flex:none;}
     .trust-stat .num{
       font-family:var(--serif);font-size:2.1rem;line-height:1;color:var(--olive);
       font-variant-numeric:tabular-nums;
@@ -175,12 +235,13 @@
     .trust-stat .lbl{
       font-size:.78rem;line-height:1.25;color:rgba(43,42,34,.75);max-width:9rem;
     }
+    .trust-divider{width:1px;align-self:stretch;min-height:3.6rem;background:rgba(43,42,34,.16);}
+    .trust-creds{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.55rem;}
     .trust-cred{
-      display:flex;align-items:center;gap:.6rem;
+      display:flex;align-items:center;gap:.55rem;margin:0;
       font-size:.82rem;color:rgba(43,42,34,.8);letter-spacing:.01em;
     }
-    .trust-cred svg{width:16px;height:16px;color:var(--gold-deep);flex:none;}
-    .trust-divider{width:1px;height:2.4rem;background:rgba(43,42,34,.16);}
+    .trust-cred svg{width:15px;height:15px;color:var(--gold-deep);flex:none;}
 
     /* Indicador de scroll */
     .scroll-cue{
@@ -193,6 +254,94 @@
     /* ---------- Reveal (mejora progresiva; sin JS todo se ve) ---------- */
     .js .reveal{opacity:0;transform:translateY(22px);}
     .reveal.in{opacity:1;transform:none;transition:opacity .9s ease,transform .9s ease;}
+    /* Entrada del retrato: se revela de izquierda a derecha, como una ventana */
+    .js .hero-portrait img,
+    .js .hero-portrait::before{
+      animation:windowReveal 1.25s cubic-bezier(.76,0,.24,1) .2s both;
+    }
+    @keyframes windowReveal{
+      from{clip-path:inset(0 100% 0 0 round 10px);}
+      to{clip-path:inset(0 0 0 0 round 10px);}
+    }
+
+    /* ---------- Banda de credenciales (marquee) ---------- */
+    .marquee{
+      overflow:hidden;background:var(--paper);
+      border-block:1px solid rgba(43,42,34,.12);
+      padding-block:1.15rem;
+    }
+    .marquee-track{
+      display:flex;width:max-content;
+      animation:marqueeScroll 38s linear infinite;
+    }
+    .marquee:hover .marquee-track{animation-play-state:paused;}
+    .marquee-group{display:flex;align-items:center;flex:none;}
+    .m-item{
+      font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--olive);font-weight:600;white-space:nowrap;padding-inline:1.7rem;
+    }
+    .m-sep{color:var(--gold-deep);font-size:.7rem;}
+    @keyframes marqueeScroll{
+      from{transform:translateX(0);}
+      to{transform:translateX(-50%);}
+    }
+
+    /* ---------- Testimonios ---------- */
+    .testimonios{
+      background:var(--olive);color:var(--cream);
+      padding-block:clamp(4.5rem,9vw,8rem);
+    }
+    .eyebrow--light{color:var(--gold);justify-content:center;}
+    .eyebrow--light::before{background:var(--gold);}
+    .testi-head{text-align:center;max-width:42rem;margin:0 auto clamp(2.75rem,5vw,4.25rem);}
+    .testi-head h2{
+      font-family:var(--serif);font-weight:500;
+      font-size:clamp(1.9rem,3.8vw,3rem);line-height:1.12;
+      margin:0 0 1rem;text-wrap:balance;color:var(--cream);
+    }
+    .testi-sub{margin:0;font-size:1.05rem;font-weight:300;color:rgba(244,239,227,.75);}
+
+    .testi-grid{
+      display:grid;grid-template-columns:repeat(2,1fr);
+      gap:clamp(1.25rem,2.5vw,2rem);max-width:980px;margin-inline:auto;
+    }
+    .testi-card{
+      position:relative;margin:0;display:flex;flex-direction:column;gap:1.4rem;
+      background:var(--cream);color:var(--ink);
+      border-radius:18px;padding:clamp(1.75rem,3vw,2.5rem);
+      box-shadow:0 34px 55px -38px rgba(0,0,0,.6);
+      overflow:hidden;
+    }
+    .testi-card::before{
+      content:"\201C";position:absolute;top:.1rem;right:1.4rem;
+      font-family:var(--serif);font-size:5.5rem;line-height:1;
+      color:var(--gold-deep);opacity:.22;
+    }
+    .testi-quote{
+      margin:0;font-size:1.02rem;line-height:1.72;position:relative;z-index:1;
+    }
+    .testi-person{display:flex;align-items:center;gap:.9rem;margin-top:auto;}
+    .testi-avatar{
+      width:52px;height:52px;border-radius:50%;flex:none;overflow:hidden;
+      display:grid;place-items:center;
+      background:linear-gradient(140deg,var(--sage),var(--olive));
+      color:var(--cream);font-family:var(--serif);font-size:1.2rem;
+    }
+    .testi-avatar img{width:100%;height:100%;object-fit:cover;}
+    .testi-name{font-weight:600;font-size:.95rem;letter-spacing:.01em;}
+
+    /* Tarjetas placeholder (para completar después) */
+    .testi-card.is-placeholder{background:#EFE8D6;}
+    .testi-quote.ph{color:rgba(43,42,34,.5);font-style:italic;}
+    .testi-avatar.ph{
+      background:transparent;border:1.5px dashed rgba(43,42,34,.3);
+      color:rgba(43,42,34,.45);font-family:var(--sans);font-weight:400;
+    }
+    .testi-name.ph{color:rgba(43,42,34,.5);font-style:italic;font-weight:500;}
+
+    @media (max-width:720px){
+      .testi-grid{grid-template-columns:1fr;max-width:34rem;}
+    }
     .reveal.d1{transition-delay:.08s;}
     .reveal.d2{transition-delay:.16s;}
     .reveal.d3{transition-delay:.24s;}
@@ -208,9 +357,28 @@
         background:var(--ink);padding:1.5rem;
       }
       .nav-links.open a{color:var(--cream);font-size:1rem;}
+      .nav-links.open .has-menu{width:100%;}
+      .nav-links.open .nav-disclosure{color:var(--cream);font-size:1rem;}
+      .nav-links.open .has-menu::after{display:none;}
+      .nav-links.open .submenu{
+        position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;
+        background:transparent;border:0;box-shadow:none;padding:.5rem 0 0 1rem;min-width:0;
+      }
+      .nav-links.open .submenu a{color:rgba(244,239,227,.82);font-size:.95rem;padding:.4rem 0;}
       .hero{padding-block:7rem 5rem;}
       .trust{gap:1.2rem 1.5rem;}
       .trust-divider{display:none;}
+    }
+
+    @media (max-width:820px){
+      .hero{padding-block:6.5rem 4rem;}
+      .hero-inner{grid-template-columns:1fr;gap:2.5rem;text-align:center;}
+      .hero-copy{max-width:38rem;margin-inline:auto;}
+      .eyebrow{justify-content:center;}
+      .hero-lead{margin-inline:auto;}
+      .hero-actions,.trust{justify-content:center;}
+      .hero-portrait{order:-1;justify-self:center;max-width:290px;}
+      .hero-portrait::before{transform:translate(12px,12px);}
     }
 
     @media (prefers-reduced-motion:reduce){
@@ -233,8 +401,16 @@
         <ul class="nav-links" id="menu">
           <li><a href="/">Home</a></li>
           <li><a href="https://dramayragonzalez.vercel.app/cuerpo-presente">Cuerpo Presente</a></li>
-          <li><a href="https://dramayragonzalez.vercel.app/mentorias-1-1">Mentorías 1:1</a></li>
-          <li><a href="https://dramayragonzalez.vercel.app/cursos-y-talleres">Cursos &amp; Talleres</a></li>
+          <li class="has-menu">
+            <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="submenu-propuestas">
+              Propuestas
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="submenu" id="submenu-propuestas">
+              <li><a href="https://dramayragonzalez.vercel.app/mentorias-1-1">Mentorías 1:1</a></li>
+              <li><a href="https://dramayragonzalez.vercel.app/cursos-y-talleres">Cursos &amp; Talleres</a></li>
+            </ul>
+          </li>
           <li><a href="https://dramayragonzalez.vercel.app/quien-soy">¿Quién soy?</a></li>
         </ul>
       </nav>
@@ -252,40 +428,109 @@
   <main id="hero">
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero-inner">
-        <p class="eyebrow reveal">Un espacio para priorizar tu salud</p>
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Un espacio para priorizar tu salud</p>
 
-        <h1 id="hero-title" class="reveal d1">
-          Confianza, seguridad y conexión para mujeres decididas a <em>cambiar su realidad</em>.
-        </h1>
+          <h1 id="hero-title" class="reveal d1">
+            Confianza, seguridad y conexión para mujeres decididas a <em>cambiar su realidad</em>.
+          </h1>
 
-        <p class="hero-lead reveal d2">
-          Ayudo a mujeres a transformar su salud, su cuerpo y su relación consigo mismas
-          a través de un enfoque integral basado en nutrición, fuerza, hábitos y medicina
-          del estilo de vida.
-        </p>
+          <p class="hero-lead reveal d2">
+            Ayudo a mujeres a transformar su salud, su cuerpo y su relación consigo mismas
+            a través de un enfoque integral basado en nutrición, fuerza, hábitos y medicina
+            del estilo de vida.
+          </p>
 
-        <div class="hero-actions reveal d3">
-          <a class="btn btn-primary btn-lg" href="https://dramayragonzalez.vercel.app/cuerpo-presente">Conocé Cuerpo Presente</a>
-          <a class="btn btn-ghost btn-lg" href="https://dramayragonzalez.vercel.app/quien-soy">Conocé mi historia</a>
+          <div class="hero-actions reveal d3">
+            <a class="btn btn-primary btn-lg" href="https://dramayragonzalez.vercel.app/cuerpo-presente">Conocé Cuerpo Presente</a>
+            <a class="btn btn-ghost btn-lg" href="https://dramayragonzalez.vercel.app/quien-soy">Conocé mi historia</a>
+          </div>
+
+          <div class="trust reveal d4">
+            <div class="trust-stat">
+              <span class="num">+90</span>
+              <span class="lbl">mujeres acompañadas</span>
+            </div>
+          </div>
         </div>
 
-        <div class="trust reveal d4">
-          <div class="trust-stat">
-            <span class="num">+90</span>
-            <span class="lbl">mujeres acompañadas</span>
-          </div>
-          <div class="trust-divider" aria-hidden="true"></div>
-          <p class="trust-cred">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-              <path d="M12 3l2.2 4.5 5 .7-3.6 3.5.85 5-4.45-2.35L7.55 16.7l.85-5L4.8 8.2l5-.7L12 3z"/>
-            </svg>
-            Médica especialista en Nutrición
-          </p>
+        <figure class="hero-portrait">
+          <img src="img/dra-mayra.png" alt="Dra. Mayra González, médica especialista en nutrición" width="1024" height="1024" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- Banda de credenciales en loop infinito -->
+    <section class="marquee" aria-label="Credenciales de la Dra. Mayra González">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <span class="m-item">Médica especialista en Nutrición</span><span class="m-sep" aria-hidden="true">✦</span>
+          <span class="m-item">Especialista en Alimentación Basada en Plantas</span><span class="m-sep" aria-hidden="true">✦</span>
+          <span class="m-item">Speaker y Divulgadora de la salud</span><span class="m-sep" aria-hidden="true">✦</span>
+          <span class="m-item">Médica especialista en Nutrición</span><span class="m-sep" aria-hidden="true">✦</span>
+          <span class="m-item">Especialista en Alimentación Basada en Plantas</span><span class="m-sep" aria-hidden="true">✦</span>
+          <span class="m-item">Speaker y Divulgadora de la salud</span><span class="m-sep" aria-hidden="true">✦</span>
+        </div>
+        <div class="marquee-group" aria-hidden="true">
+          <span class="m-item">Médica especialista en Nutrición</span><span class="m-sep">✦</span>
+          <span class="m-item">Especialista en Alimentación Basada en Plantas</span><span class="m-sep">✦</span>
+          <span class="m-item">Speaker y Divulgadora de la salud</span><span class="m-sep">✦</span>
+          <span class="m-item">Médica especialista en Nutrición</span><span class="m-sep">✦</span>
+          <span class="m-item">Especialista en Alimentación Basada en Plantas</span><span class="m-sep">✦</span>
+          <span class="m-item">Speaker y Divulgadora de la salud</span><span class="m-sep">✦</span>
         </div>
       </div>
+    </section>
 
-      <div class="scroll-cue" aria-hidden="true">
-        <span></span>
+    <section class="testimonios" aria-labelledby="testi-title">
+      <div class="wrap">
+        <div class="testi-head reveal">
+          <p class="eyebrow eyebrow--light">Testimonios</p>
+          <h2 id="testi-title">Historias de mujeres que alguna vez se sintieron como vos</h2>
+          <p class="testi-sub">Y decidieron hacer las cosas diferente.</p>
+        </div>
+
+        <div class="testi-grid">
+          <!-- Testimonio 1 (real) -->
+          <figure class="testi-card reveal d1">
+            <blockquote class="testi-quote">Por primera vez sentí que no tenía que hacerlo sola. Llegué cansada de empezar de nuevo cada semana. Con Mayra encontré una estrategia clara, acompañamiento real y hábitos que pude sostener. Hoy me siento más fuerte y mucho más segura de mí misma.</blockquote>
+            <figcaption class="testi-person">
+              <!-- FOTO: reemplazá este div por <img src="img/testi-maria.jpg" alt="María" /> -->
+              <div class="testi-avatar" aria-hidden="true">M</div>
+              <span class="testi-name">María</span>
+            </figcaption>
+          </figure>
+
+          <!-- Testimonio 2 (real) -->
+          <figure class="testi-card reveal d2">
+            <blockquote class="testi-quote">Dejé de pelearme con mi cuerpo. Llegué buscando un cambio físico, pero encontré mucho más — la combinación de profesionalismo, empatía y acompañamiento de Mayra me ayudó a recuperar la confianza en mí misma y construir hábitos que hoy forman parte de mi vida.</blockquote>
+            <figcaption class="testi-person">
+              <!-- FOTO: reemplazá este div por <img src="img/testi-estefi.jpg" alt="Estefi" /> -->
+              <div class="testi-avatar" aria-hidden="true">E</div>
+              <span class="testi-name">Estefi</span>
+            </figcaption>
+          </figure>
+
+          <!-- Testimonio 3 (real) -->
+          <figure class="testi-card reveal d3">
+            <blockquote class="testi-quote">Volví a disfrutar de la comida sin culpa ni miedo. Lo que más valoro de este proceso fue sentirme escuchada y comprendida. Mayra me ayudó a construir una relación mucho más tranquila con la alimentación y conmigo misma.</blockquote>
+            <figcaption class="testi-person">
+              <!-- FOTO: reemplazá este div por <img src="img/testi-cami.jpg" alt="Cami" /> -->
+              <div class="testi-avatar" aria-hidden="true">C</div>
+              <span class="testi-name">Cami</span>
+            </figcaption>
+          </figure>
+
+          <!-- Testimonio 4 (real) -->
+          <figure class="testi-card reveal d4">
+            <blockquote class="testi-quote">Encontré respuestas donde antes solo había frustración. Después de años conviviendo con síntomas digestivos, encontré una profesional que miró mi salud de manera integral. Gracias a su acompañamiento, hoy me siento mejor que nunca.</blockquote>
+            <figcaption class="testi-person">
+              <!-- FOTO: reemplazá este div por <img src="img/testi-veronica.jpg" alt="Verónica" /> -->
+              <div class="testi-avatar" aria-hidden="true">V</div>
+              <span class="testi-name">Verónica</span>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </section>
   </main>
@@ -302,6 +547,28 @@
           btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
         });
       }
+    })();
+
+    // Desplegable "Propuestas" (clic para teclado/touch)
+    (function(){
+      var disc = document.querySelector('.nav-disclosure');
+      var sub = document.getElementById('submenu-propuestas');
+      if(!disc || !sub) return;
+      disc.addEventListener('click', function(e){
+        e.preventDefault();
+        var open = sub.classList.toggle('open');
+        disc.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('click', function(e){
+        if(!disc.parentNode.contains(e.target)){
+          sub.classList.remove('open'); disc.setAttribute('aria-expanded','false');
+        }
+      });
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){
+          sub.classList.remove('open'); disc.setAttribute('aria-expanded','false');
+        }
+      });
     })();
 
     // Reveal como mejora progresiva (respeta reduced-motion)
