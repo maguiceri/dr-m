@@ -339,8 +339,26 @@
     }
     .testi-name.ph{color:rgba(43,42,34,.5);font-style:italic;font-weight:500;}
 
+    .testi-hint{display:none;}
+
     @media (max-width:720px){
-      .testi-grid{grid-template-columns:1fr;max-width:34rem;}
+      /* Carrusel deslizable en mobile: menos scroll vertical */
+      .testi-grid{
+        display:flex;grid-template-columns:none;max-width:none;
+        overflow-x:auto;scroll-snap-type:x mandatory;
+        gap:1rem;padding-bottom:1.1rem;
+        -webkit-overflow-scrolling:touch;scrollbar-width:none;
+      }
+      .testi-grid::-webkit-scrollbar{display:none;}
+      .testi-card{
+        flex:0 0 86%;scroll-snap-align:start;min-width:0;
+        opacity:1 !important;transform:none !important; /* visibles en el carrusel */
+      }
+      .testi-hint{
+        display:block;text-align:center;margin:1.1rem 0 0;
+        font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+        color:rgba(244,239,227,.65);
+      }
     }
     .reveal.d1{transition-delay:.08s;}
     .reveal.d2{transition-delay:.16s;}
@@ -531,6 +549,7 @@
             </figcaption>
           </figure>
         </div>
+        <p class="testi-hint" aria-hidden="true">Deslizá para ver más →</p>
       </div>
     </section>
   </main>
