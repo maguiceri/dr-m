@@ -853,15 +853,8 @@
 html{scroll-behavior:smooth;}
 :where(section,main){scroll-margin-top:2rem;}
 
-/* --- Transiciones entre páginas (View Transitions API, MPA) --- */
-@view-transition{ navigation:auto; }
-::view-transition-old(root){animation:vtFadeOut .32s ease both;}
-::view-transition-new(root){animation:vtFadeIn .42s ease both;}
-@keyframes vtFadeOut{to{opacity:0;}}
-@keyframes vtFadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-/* Header y footer persisten (no cross-fade) entre páginas */
-.site-header{view-transition-name:site-header;}
-.site-footer{view-transition-name:site-footer;}
+/* Transiciones entre páginas desactivadas: el cross-fade MPA producía un
+   parpadeo ("apagón") en mobile al ir de una página clara a una oscura. */
 
 /* --- Hover lift consistente en cards --- */
 .pillar,.recurso-card,.prop-card,.testi-card{
@@ -1012,3 +1005,20 @@ html{scroll-behavior:smooth;}
 /* --- Sin "salto" al cargar: el hero aparece con fundido, sin desplazamiento --- */
 .hero .reveal, .cp-hero .reveal, .cursos-hero .reveal,
 .md-hero .reveal, .qs-hero .reveal{ transform:none !important; }
+
+
+/* --- Anti-flash ("apagón"): el hero aparece con fundido por CSS desde el 1er frame --- */
+.hero .reveal, .cp-hero .reveal, .cursos-hero .reveal,
+.md-hero .reveal, .qs-hero .reveal{
+  transform:none !important;
+  animation:fadeInSoft .8s ease both;
+}
+.hero .reveal.d1,.cp-hero .reveal.d1,.cursos-hero .reveal.d1,.md-hero .reveal.d1,.qs-hero .reveal.d1{animation-delay:.06s;}
+.hero .reveal.d2,.cp-hero .reveal.d2,.cursos-hero .reveal.d2,.md-hero .reveal.d2,.qs-hero .reveal.d2{animation-delay:.12s;}
+.hero .reveal.d3,.cp-hero .reveal.d3,.cursos-hero .reveal.d3,.md-hero .reveal.d3,.qs-hero .reveal.d3{animation-delay:.18s;}
+.hero .reveal.d4,.cp-hero .reveal.d4,.cursos-hero .reveal.d4,.md-hero .reveal.d4,.qs-hero .reveal.d4{animation-delay:.24s;}
+@keyframes fadeInSoft{from{opacity:0;}to{opacity:1;}}
+@media (prefers-reduced-motion: reduce){
+  .hero .reveal, .cp-hero .reveal, .cursos-hero .reveal,
+  .md-hero .reveal, .qs-hero .reveal{animation:none;opacity:1;}
+}
