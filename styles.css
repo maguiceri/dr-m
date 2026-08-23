@@ -775,8 +775,9 @@
 .quotes-head .eyebrow::before{background:var(--gold-deep);}
 .quotes-head h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.14;margin:0 0 .6rem;color:var(--ink);text-wrap:balance;}
 .quotes-head p{margin:0;font-size:1.02rem;color:rgba(43,42,34,.75);}
-.quotes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;max-width:900px;margin-inline:auto;}
-.quote-card{position:relative;background:var(--cream);border-radius:16px;padding:2rem 2rem 1.75rem;box-shadow:0 26px 50px -40px rgba(43,42,34,.5);}
+.quotes-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1.25rem;max-width:820px;margin-inline:auto;}
+.quote-card{flex:1 1 320px;max-width:380px;position:relative;background:var(--cream);border-radius:16px;padding:2rem 2rem 1.75rem;box-shadow:0 26px 50px -40px rgba(43,42,34,.5);}
+@media (max-width:640px){.quote-card{flex-basis:100%;max-width:34rem;}}
 .quote-card::before{content:"\201C";position:absolute;top:.2rem;left:1.2rem;font-family:var(--serif);font-size:3.5rem;line-height:1;color:var(--gold-deep);opacity:.25;}
 .quote-card p{font-family:var(--serif);font-style:italic;font-size:1.05rem;line-height:1.5;color:var(--ink);margin:0;position:relative;z-index:1;}
 
