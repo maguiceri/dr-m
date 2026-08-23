@@ -70,6 +70,9 @@
   // Fondo oscuro -> pintado claro
   ['.cuerpo-close', '.cp-close p', '.waitlist p:not(.note)']
     .forEach(function(sel){ document.querySelectorAll(sel).forEach(function(e){ e.classList.add('paint-l'); }); });
+  // Acentos de color (em) con efecto de pintado
+  document.querySelectorAll('.cuerpo-manifesto .big em').forEach(function(e){ e.classList.add('paint-gold-l'); });
+  document.querySelectorAll('.hero h1 em, .qs-hero h1 em').forEach(function(e){ e.classList.add('paint-olive'); });
 })();
 
 
@@ -77,7 +80,7 @@
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var lines  = document.querySelectorAll('.su-line');
-  var paints = document.querySelectorAll('.paint, .paint-olive, .paint-l');
+  var paints = document.querySelectorAll('.paint, .paint-olive, .paint-l, .paint-gold-l');
   var steps  = document.querySelectorAll('.proceso-steps');
 
   function fire(el){
