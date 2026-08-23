@@ -1039,3 +1039,29 @@ html{scroll-behavior:smooth;}
 
 /* Acento en el título de Quién Soy */
 .qs-hero h1 em{font-style:italic;color:var(--olive);}
+
+
+/* ============================================================
+   Fixes de UX mobile (auditoría)
+   ============================================================ */
+/* 1) Evitar zoom de iOS al enfocar el input (>=16px) */
+.waitlist-form input{font-size:16px;}
+
+/* 2) Menú mobile: filas completas y táctiles (>=44px) */
+@media (max-width:920px){
+  .nav-links.open{gap:.15rem;}
+  .nav-links.open a,
+  .nav-links.open .nav-disclosure{display:block;width:100%;padding:.7rem 0;text-align:left;}
+  .nav-links.open .submenu a{padding:.55rem 0;}
+  /* 4) Hamburguesa ~44px */
+  .nav-toggle{padding:.55rem;}
+}
+
+/* 3) Cards "Otras propuestas" (Home) totalmente clickeables */
+.prop-card{position:relative;transition:transform .28s ease,box-shadow .28s ease;}
+.prop-card:hover{transform:translateY(-4px);box-shadow:0 42px 70px -38px rgba(43,42,34,.6);}
+.prop-card .prop-link::after{content:"";position:absolute;inset:0;z-index:1;}
+.prop-card:focus-within{outline:2px solid var(--gold);outline-offset:3px;}
+
+/* 5) Footer: más área táctil por link */
+.footer-nav a,.footer-contact a{display:inline-block;padding-block:.2rem;}

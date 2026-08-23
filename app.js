@@ -8,6 +8,11 @@
           btn.setAttribute('aria-expanded', open ? 'true' : 'false');
           btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
         });
+        // Cerrar el menú al tocar un enlace real (no el botón "Propuestas")
+        menu.addEventListener('click', function(e){
+          var a = e.target.closest('a');
+          if(a){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-label','Abrir menú'); }
+        });
       }
     })();
 
