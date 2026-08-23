@@ -1007,3 +1007,8 @@ html{scroll-behavior:smooth;}
   .js .paint,.js .paint-olive,.js .paint-l{background-position:0 0;transition:none;}
   .js .proceso-steps::after{transform:scaleY(1);transition:none;}
 }
+
+
+/* --- Sin "salto" al cargar: el hero aparece con fundido, sin desplazamiento --- */
+.hero .reveal, .cp-hero .reveal, .cursos-hero .reveal,
+.md-hero .reveal, .qs-hero .reveal{ transform:none !important; }
